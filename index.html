@@ -13,12 +13,13 @@
     <main>
         <section>
             <h2>Ouça Agora</h2>
-            <audio controls>
-                <source src="15 Black Ice.mp3" type="audio/mpeg">
+            <audio id="audio" controls autoplay>
                 Seu navegador não suporta o elemento de áudio.
             </audio>
         </section>
-        
+        <input type="button" value="Próxima" onclick="escolher(1)">
+        <input type="button" value="Anterior" onclick="escolher(-1)">
+        <p>Música: <span id="resp"></span></p>
         <section>
             <h2>Programação</h2>
             <ul>
@@ -32,5 +33,33 @@
     <footer>
         <p>&copy; 2024 Minha Rádio Web</p>
     </footer>
+    <script>
+        let audio = document.getElementById('audio');
+        let resp = document.getElementById('resp');
+        let musicas = ["Wish You Were Here.mp3", "Rock And Roll Ain't Noise Pollution.mp3", "Black Ice.mp3"];
+        let indiceMusica = 0;
+
+        function escolher(direcao) {
+            indiceMusica += direcao;
+            if (indiceMusica < 0) {
+                indiceMusica = musicas.length - 1;
+            } else if (indiceMusica >= musicas.length) {
+                indiceMusica = 0;
+            }
+            audio.src = `musicas/${musicas[indiceMusica]}`;
+            audio.play();
+            resp.textContent = musicas[indiceMusica];
+        }
+
+        // Atualizar o tempo atual de reprodução
+        audio.addEventListener('timeupdate', () => {
+            let currentTime = audio.currentTime;
+            resp.textContent = `Tempo atual: ${Math.floor(currentTime)}s`;
+        });
+
+        // Inicializar com a primeira música
+        escolher(0);
+    </script>
 </body>
 </html>
+
