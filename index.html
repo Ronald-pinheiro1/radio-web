@@ -49,13 +49,7 @@
             audio.src = `musicas/${musicas[indiceMusica]}`;
             audio.play();
             resp.textContent = musicas[indiceMusica];
-        }
-
-        // Atualizar o tempo atual de reprodução
-        audio.addEventListener('timeupdate', () => {
-            let currentTime = audio.currentTime;
-            resp.textContent = `Tempo atual: ${Math.floor(currentTime)}s`;
-        });
+        };
 
         // Inicializar com a primeira música
         escolher(0);
